@@ -1,14 +1,16 @@
-def ceaserCipher(text, key):
+#Ceaser Cipher -  changes the the letters with the key
+def ceaserCipher(text, key) -> str:
     result = []
     for i in range (len(text)):
         char = text[i]
         if (char.isalpha()):
-            result.append(chr((ord(char) + key-65) % 26 + 65))
+            result.append(chr((ord(char) + key - 65) % 26 + 65))
         else:
-            result.append(chr((ord(char) + s - 97) % 26 + 97))
+            result.append(chr((ord(char) + key - 97) % 26 + 97))
     return ''.join(result)
 
-def substitutionCipher(text, key):
+#Substitution Cipher -  changes the vawols into ASCII and add the number in key
+def substitutionCipher(text, key) -> str:
     result =[]
     vowels = set('aeiouAEIOU')
     for i in range(len(text)):
@@ -19,12 +21,14 @@ def substitutionCipher(text, key):
             result.append[char]
     return ''.join(result)
         
-
-def encrypt(text, key):
+#Runs the encryption by steps
+def encrypt(text, key) -> str:
     encrypt1 = ceaserCipher(text, key)
     encrypt2 = substitutionCipher(encrypt1, key)
-    encrypted_text = ''  
-    return encrypted_text
+    return encrypt2
+    
+def decryptSubstitution(text, key) ->str:
+    
     
 
 def decrypt(text, key):
