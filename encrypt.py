@@ -7,8 +7,10 @@ def ceaserCipher(text, key) -> str:
         char = text[i]
         if (char.isalpha()):
             result.append(chr((ord(char) + key - 65) % 26 + 65))
-        else:
+        elif (char.islower()):
             result.append(chr((ord(char) + key - 97) % 26 + 97))
+        else:
+            result.append(char)
     return ''.join(result)
 
 #Substitution Cipher -  changes the vawols into ASCII and add the number in key
@@ -20,7 +22,7 @@ def substitutionCipher(text, key) -> str:
         if char in vowels:
             result.append(str(ord(char) + key))
         else: 
-            result.append[char]
+            result.append(char)
     return ''.join(result)
         
 #Runs the encryption by steps
@@ -40,7 +42,7 @@ def decryptSubstitution(text, key) ->str:
             #transform back to letter and add to array
             result.append(chr(num_minus_key))
         else: 
-            result.append[char]
+            result.append(char)
     return ''.join(result)
 
     
@@ -82,12 +84,16 @@ if __name__ == "__main__":
     
     choice = int(input("Enter your choice: "))
     input_file = input("Enter the input file name: ")
-    output_file = input("Enter the output file name: ")
     key = int(input("Enter the encryption/decryption key (integer): "))
 
     if choice == 1:
+        output_file = "encrypted.txt"
         encrypt_file(input_file, output_file, key)
+        print(f"Encrypted output saved as {output_file}")
+
     elif choice == 2:
+        output_file = "decrypted.txt"
         decrypt_file(input_file, output_file, key)
+        print(f"Decrypted output saved as {output_file}")
     else:
         print("Invalid choice.")
