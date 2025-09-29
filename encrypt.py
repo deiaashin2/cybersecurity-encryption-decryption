@@ -5,7 +5,7 @@ def ceaserCipher(text, key) -> str:
     result = []
     for i in range (len(text)):
         char = text[i]
-        if (char.isalpha()):
+        if (char.isupper()):
             result.append(chr((ord(char) + key - 65) % 26 + 65))
         elif (char.islower()):
             result.append(chr((ord(char) + key - 97) % 26 + 97))
@@ -20,7 +20,7 @@ def substitutionCipher(text, key) -> str:
     for i in range(len(text)):
         char = text[i]
         if char in vowels:
-            result.append(str(ord(char) + key))
+            result.append(f"*{ord(char) + key}*")
         else: 
             result.append(char)
     return ''.join(result)
@@ -34,15 +34,19 @@ def encrypt(text, key) -> str:
 #decryption to the substitution cipher    
 def decryptSubstitution(text, key) ->str:
     result = []
-    for i in range(len(text)):
-        char = text[i]
-        if char.isdigit():
-            tempNum = re.match(r'\d+', text[i:]).group()
-            num_minus_key = int(tempNum) - key
-            #transform back to letter and add to array
-            result.append(chr(num_minus_key))
-        else: 
-            result.append(char)
+    i = 0
+    while i < len(text):
+        if text[i] == "*":  
+            j = text.find("*", i + 1)
+            if j != -1:
+                num_str = text[i+1:j] 
+                if num_str.isdigit():
+                    num_minus_key = int(num_str) - key
+                    result.append(chr(num_minus_key))
+                i = j + 1
+                continue
+        result.append(text[i])
+        i += 1
     return ''.join(result)
 
     
