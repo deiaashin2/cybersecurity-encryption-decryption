@@ -1,3 +1,5 @@
+import re
+
 #Ceaser Cipher -  changes the the letters with the key
 def ceaserCipher(text, key) -> str:
     result = []
@@ -26,14 +28,27 @@ def encrypt(text, key) -> str:
     encrypt1 = ceaserCipher(text, key)
     encrypt2 = substitutionCipher(encrypt1, key)
     return encrypt2
-    
-def decryptSubstitution(text, key) ->str:
-    
-    
 
+#decryption to the substitution cipher    
+def decryptSubstitution(text, key) ->str:
+    result = []
+    for i in range(len(text)):
+        char = text[i]
+        if char.isdigit():
+            tempNum = re.match(r'\d+', text[i:]).group()
+            num_minus_key = int(tempNum) - key
+            #transform back to letter and add to array
+            result.append(chr(num_minus_key))
+        else: 
+            result.append[char]
+    return ''.join(result)
+
+    
 def decrypt(text, key):
-    decrypted_text = ''.join([chr(ord(char) - key) for char in text])
-    return decrypted_text
+    decrypted_text1 = decryptSubstitution(text, key)
+    #uses same function as encodying but changes key to negative number 
+    decrypted_text2 = ceaserCipher(decrypted_text1, -key)
+    return decrypted_text2
 
 def encrypt_file(input_file, output_file, key):
     try:
